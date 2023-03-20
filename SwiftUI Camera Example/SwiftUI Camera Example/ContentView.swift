@@ -72,6 +72,62 @@ struct ContentView: View {
                             }
                         }
                     }
+                    Button("BoxBlur"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.boxBlur()
+                            currentFilter.inputImage = beginImage
+                            currentFilter.radius = 40
+                            
+                            guard let outputImage = currentFilter.outputImage else { return }
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage:cgImage)
+                                self.selectedImage = uiImage
+                            }
+                        }
+                    }
+                    Button("XRAY"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.xRay()
+                            currentFilter.inputImage = beginImage
+                         
+                            
+                            guard let outputImage = currentFilter.outputImage else { return }
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage:cgImage)
+                                self.selectedImage = uiImage
+                            }
+                        }
+                    }
+                    Button("Thermal"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.thermal()
+                            currentFilter.inputImage = beginImage
+                         
+                            
+                            guard let outputImage = currentFilter.outputImage else { return }
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage:cgImage)
+                                self.selectedImage = uiImage
+                            }
+                        }
+                    }
+                    Button("Contrast"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.colorThresholdOtsu()
+                            currentFilter.inputImage = beginImage
+                         
+                            
+                            guard let outputImage = currentFilter.outputImage else { return }
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage:cgImage)
+                                self.selectedImage = uiImage
+                            }
+                        }
+                    }
                 }
             }.sheet(isPresented: self.$displayPickerView) {
                 ImagePickerView(selectedImage: self.$selectedImage, sourceType: self.sourceType)
